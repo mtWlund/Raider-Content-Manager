@@ -21,12 +21,9 @@
                 </ul>
             </li>
             <li>
-                <a href="#" class="dropdown-toggle">Raid</a>
-                <ul class="d-menu" data-role="dropdown">
-                    <li><a href="#">theDate</a></li>
-                    <li><a href="#">theDate2</a></li>
-                    <li class="divider bg-lightGray"></li>
-                    <li><a href="#">What could this be?!</a></li>
+                <a href="#" class="dropdown-toggle" >Raids</a>
+                <ul class="d-menu" data-role="dropdown" id="guildInformation">
+                    <li><a href="#">...</a></li>
                 </ul>
             </li>
             <li class="divider bg-lightGray"></li>
@@ -72,7 +69,14 @@
             </div>
         </div>
         
-
+        <div class="row">
+          <div class="cell-6">
+            <ul id="_testList">
+              <li>Loading...</li>
+            </ul>
+          </div>
+          <div class="cell-6"></div>
+        </div>
       </div>
     </div>
     <!-- Merto UI -->
@@ -98,6 +102,37 @@
         }
     </script>
     <!-- Get RaidId for Guild -->
-    <script></script>
+    <script>
+      $(function() {
+        google.script.run.withSuccessHandler(getUserGuildInfo)
+            .getUserGuilds();
+      });
+
+      function getUserGuildInfo(data){
+       var list = $('#guildInformation');
+       list.empty();
+       for(var i = 0; i < data.length; i++){
+        // <li><a href="#" class="dropdown-toggle" >GuildName</a><ul id="Raids_GuildId"></ul></li>
+        list.append('<li><a href="#" class="dropdown-toggle" >' + data[i][0][1] + '</a><ul  class="d-menu" data-role="dropdown" id="Raids_'+ data[i][0][2] + '">'+ getRaidUrl(data[i]) +'</ul></li>')
+       }
+      }
+
+      function getRaidUrl(guildRaids){
+        const url = 'https://script.google.com/macros/s/AKfycbybjQBs3UNkmakRl1ubNhTVLJjfKGdJY8OG0pnHva-1/dev?page=index&raidId=';
+        var listValues = ''
+        
+        // Pass GuildId to Backend
+        // Receive a array with raids that this guild has.
+        // Build URL for each raid, show date in RaidList.
+        // Sort on Date Descending (Latest at the top and older raids following)
+        // Maybe change so you get a "Guild Page" with a search function to list raids from the date... or between dates.
+        // Then each Raid Date is a link you can click on and get the "Raid Page" for that guild.
+
+        guildRaids.forEach(r => { listValues += url + guildRaids[0][2] });
+        
+        return '<li><a href="#" >Loading...</a></li>';
+      }
+
+    </script>
   </body>
 </html>
