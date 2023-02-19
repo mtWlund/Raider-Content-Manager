@@ -1,6 +1,19 @@
+/**
+ * Collection of functions to perform backend tasks.
+ * @date 2/18/2023 - 3:23:32 PM
+ *
+ * @type {*}
+ */
 const ss = SpreadsheetApp.getActiveSpreadsheet()
 const user = Session.getActiveUser()
 
+/**
+ * Description placeholder
+ * @date 2/18/2023 - 3:23:24 PM
+ *
+ * @param {*} data
+ * @returns {{ Name: any; Id: any; RegisterDate: any; Owner: any; }}
+ */
 function registerGuild(data){
     var guildInfo = {
         "Name": data.GuildName,
@@ -16,6 +29,12 @@ function registerGuild(data){
     return guildInfo
 }
 
+/**
+ * Description placeholder
+ * @date 2/18/2023 - 3:23:18 PM
+ *
+ * @param {*} guildRaidData
+ */
 function setGuildRaidId(guildRaidData){
     console.log(guildRaidData)
 
@@ -24,22 +43,13 @@ function setGuildRaidId(guildRaidData){
     ws.appendRow([guildRaidData.GuildId, guildRaidData.RaidId, date.toUTCString()])
 }
 
-function getUserGuilds(){
-    var ws_guild    = ss.getSheetByName("Guilds");
-    var guild = [];
-    let textFinder       = ws_guild.getRange("A2:B" + ws_guild.getLastRow())
-                        .createTextFinder(user.getEmail());
-
-    textFinder.findAll().forEach(r => {
-        guild.push(
-            ws_guild.getRange("A" + r.getRow() + ":D" + r.getRow()).getDisplayValues()
-        )
-    });
-    console.log(guild)
-
-    return guild;
-}
-
+/**
+ * Description placeholder
+ * @date 2/18/2023 - 3:24:12 PM
+ *
+ * @param {*} data
+ * @returns {*}
+ */
 function getGuildRaidIds(data){
     var ws_guild    = ss.getSheetByName("Guilds");
     var guild       = ws_guild.getRange("A2:D" + ws_guild.getLastRow())

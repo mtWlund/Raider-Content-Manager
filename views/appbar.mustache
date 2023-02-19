@@ -1,0 +1,16 @@
+<div class="app-bar-container">
+    <a href="#" class="app-bar-item dropdown-toggle">{{title}}</a>
+    <ul class="d-menu" data-role="dropdown">
+    {{#items}}
+        <li>
+            <a href="{{url}}" class="dropdown-toggle">{{name}}</a>
+            <ul class="d-menu" data-role="dropdown" {{#id}}id="{{id}}"{{/id}}>
+            {{#subitems}}
+                <li><a href="{{url}}">{{name}}</a></li>
+            {{/subitems}}
+            </ul>
+        </li>
+        <li class="divider bg-lightGray"></li>
+    {{/items}}
+    </ul>
+</div>

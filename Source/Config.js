@@ -18,6 +18,11 @@ let _G = {
     lib:                    'Lib',
     maps:                   'Maps',
   },
+  configSheets: {
+    moderators:             'Moderators',
+    guilds:                 'Guilds',
+    raids:                  'Raids',
+  },
   autoAssign: {
     classRolePrefix: ["T-Warrior-","T-Death Knight-","T-Druid-","T-Paladin-","H-Paladin-","H-Priest-","H-Shaman-","H-Druid-","M-Warrior-","M-Paladin-","M-Shaman-","M-Death Knight-","M-Rogue-","M-Druid-","R-Shaman-","R-Mage-","R-Warlock-","R-Hunter-","R-Druid-","R-Priest-"],
     rolePrefix:      ["TA-","HL-","M_DPS-","R_DPS-","None"],

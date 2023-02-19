@@ -41,9 +41,8 @@
     <!-- content here -->
     <div class="grid">
       <div class="row">
-        <div class="cell-9"></div>
-        <div class="cell-1">Welcome:</div>
-        <div class="cell-2" id="session_user"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
       </div>
       <div class="row">
         <div class="cell-12">
@@ -115,7 +114,7 @@
   <script>
     $(function () {
       google.script.run.withSuccessHandler(getUserGuildInfo)
-        .moderatorForGuilds();
+        .getUserGuilds();
     });
 
     function getUserGuildInfo(data) {
@@ -123,21 +122,14 @@
       list.empty();
       for (var i = 0; i < data.length; i++) {
         // <li><a href="#" class="dropdown-toggle" >GuildName</a><ul id="Raids_GuildId"></ul></li>
-        list.append('<li><a href="' + getRaidUrl(data[i].guildId) + '" class="dropdown-toggle" >' + data[i].guild + '</a></li>')
+        list.append('<li><a href="#" class="dropdown-toggle" >' + data[i][0][1] + '</a><ul  class="d-menu" data-role="dropdown" id="Raids_' + data[i][0][2] + '">' + getRaidUrl(data[i]) + '</ul></li>')
       }
-
-      setVisiter(data[0].email);
     }
 
-    function setVisiter(currentUser) {
-      console.log(currentUser);
-      //let activeUser = $('#session_user');
-      let activeUser = document.getElementById("session_user");
-      activeUser.innerHTML = currentUser;
-    }
+    function getRaidUrl(guildRaids) {
+      const url = 'https://script.google.com/macros/s/AKfycbybjQBs3UNkmakRl1ubNhTVLJjfKGdJY8OG0pnHva-1/dev?page=index&raidId=';
+      var listValues = ''
 
-    function getRaidUrl(raidId) {
-      const url = 'https://script.google.com/macros/s/AKfycbybjQBs3UNkmakRl1ubNhTVLJjfKGdJY8OG0pnHva-1/dev?page=index';
       // Pass GuildId to Backend
       // Receive a array with raids that this guild has.
       // Build URL for each raid, show date in RaidList.
@@ -145,7 +137,9 @@
       // Maybe change so you get a "Guild Page" with a search function to list raids from the date... or between dates.
       // Then each Raid Date is a link you can click on and get the "Raid Page" for that guild.
 
-      return url + '&guildId=' + raidId;
+      guildRaids.forEach(r => { listValues += url + guildRaids[0][2] });
+
+      return '<li><a href="#" >Loading...</a></li>';
     }
 
   </script>
